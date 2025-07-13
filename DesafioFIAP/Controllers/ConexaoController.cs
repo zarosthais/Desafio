@@ -13,9 +13,13 @@ public class ConexaoController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// Teste de conexão com o banco
+    /// </summary>
+    /// <returns>Conexão ok</returns>
     [HttpGet("teste")]
     public async Task<IActionResult> TesteConexao()
     {
-        return Ok($"Conectado com sucesso!");
+        return Ok("Conectado com sucesso!");
     }
 }

@@ -77,6 +77,7 @@ namespace DesafioFIAP.Services
         {
             return _repo.ListarAlunos(numPag, pagTam);
         }
+
         public IResponse<List<AlunoModel>> ListarAlunosPorNome(string Nome, int numPag, int pagTam)
         {
             return _repo.ListarAlunosPorNome(Nome, numPag, pagTam);

@@ -16,6 +16,11 @@ namespace DesafioFIAP.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Criar o token para liberar o acesso aos endpoints protegidos
+        /// </summary>
+        /// <param name="loginDTO">Objeto login</param>
+        /// <returns>Token criada</returns>
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDTO loginDTO)
         {
