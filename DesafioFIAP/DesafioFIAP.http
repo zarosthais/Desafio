@@ -1,0 +1,6 @@
+@DesafioFIAP_HostAddress = http://localhost:5250
+
+GET {{DesafioFIAP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

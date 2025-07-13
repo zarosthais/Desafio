@@ -1,0 +1,63 @@
+﻿using DesafioFIAP.Data;
+using DesafioFIAP.DTO;
+using DesafioFIAP.Models;
+using DesafioFIAP.Repositories;
+using DesafioFIAP.Responses;
+using Microsoft.EntityFrameworkCore;
+
+namespace DesafioFIAP.Services
+{
+    public class MatriculaService : IMatriculaService
+    {
+        private readonly AppDbContext _context;
+        private readonly IMatriculaRepository _repo;
+        public MatriculaService(IMatriculaRepository repo, AppDbContext context)
+        {
+            _repo = repo;
+            _context = context;
+        }
+        public IResponse<MatriculaModel> CriarMatricula(CriarMatriculaDTO matricula)
+        {
+            bool jaMatriculado = _context.Matricula.Any(m => m.AlunoId == matricula.AlunoId && m.TurmaId == matricula.TurmaId);
+
+            if (jaMatriculado)
+                return Response<MatriculaModel>.Falha("Esse aluno já está matriculado nesta turma.");
+
+            var novaMatricula = new MatriculaModel
+            {
+                TurmaId = matricula.TurmaId,
+                AlunoId = matricula.AlunoId,
+                DataInclusao = DateTime.Now,
+            };
+
+            return _repo.CriarMatricula(novaMatricula);
+        }
+
+        public IResponse<MatriculaModel> EditarMatricula(int Id, EditarMatriculaDTO matriculaEdicao)
+        {
+            var matricula = _context.Matricula.FindAsync(Id);
+
+            var matriculaObtida = matricula.Result;
+
+            if (matriculaObtida == null)
+                return Response<MatriculaModel>.Falha("Matrícula não encontrada");
+
+            matriculaObtida.TurmaId = matriculaEdicao.TurmaId;
+            matriculaObtida.DataEdicao = DateTime.Now;
+
+            return _repo.EditarMatricula(matriculaObtida);
+        }
+        public IResponse<MatriculaModel> ExcluirMatricula(int Id)
+        {
+            var matricula = _context.Matricula.FindAsync(Id);
+
+            var matriculaObtida = matricula.Result;
+
+            if (matriculaObtida == null)
+                return Response<MatriculaModel>.Falha("Matrícula não encontrada");
+
+            return _repo.ExcluirMatricula(matriculaObtida);
+        }
+
+    }
+}
