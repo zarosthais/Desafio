@@ -25,8 +25,9 @@ CREATE TABLE Turma (
 CREATE TABLE Matricula (
     Id INT PRIMARY KEY IDENTITY(1,1),
     AlunoId INT FOREIGN KEY REFERENCES Aluno(Id),
-    TurmaId INT FOREIGN KEY REFERENCES Turma(Id),
-    DataMatricula DATE
+    TurmaId INT FOREIGN KEY REFERENCES Turma(Id),    
+    DataInclusao DATETIME, --armazenar dados de inclusão e edição para controle
+    DataEdicao DATETIME 
 );
 
 -- Criação de turmas
@@ -42,7 +43,7 @@ INSERT INTO Aluno (Nome, DataNascimento, CPF, Email, Senha, DataInclusao, DataEd
 GO
 
 -- Adicionando o aluno na tabela de matriculas 
-INSERT INTO Matricula (AlunoId, TurmaId, DataMatricula) VALUES
-(1, 1, GETDATE()),
-(2, 2, GETDATE());
+INSERT INTO Matricula (AlunoId, TurmaId, DataInclusao, DataEdicao) VALUES
+(1, 1, GETDATE(), null),
+(2, 2, GETDATE(), null);
 GO

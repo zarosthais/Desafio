@@ -34,7 +34,7 @@ namespace DesafioFIAP.Services
             var turmaObtida = turma.Result;
 
             if (turmaObtida == null)
-                return Response<TurmaModel>.Falha("Turma não encontrado");
+                return Response<TurmaModel>.Falha("Turma não encontrada");
 
             turmaObtida.Nome = turmaEdicao.Nome;
             turmaObtida.Descricao = turmaEdicao.Descricao;

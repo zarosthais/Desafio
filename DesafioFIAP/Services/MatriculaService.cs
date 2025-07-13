@@ -18,6 +18,20 @@ namespace DesafioFIAP.Services
         }
         public IResponse<MatriculaModel> CriarMatricula(CriarMatriculaDTO matricula)
         {
+            var aluno = _context.Aluno.FindAsync(matricula.AlunoId);
+
+            var alunoObtido = aluno.Result;
+
+            if (alunoObtido == null)
+                return Response<MatriculaModel>.Falha("Aluno não encontrado");
+
+            var turma = _context.Turma.FindAsync(matricula.TurmaId);
+
+            var turmaObtida = turma.Result;
+
+            if (turmaObtida == null)
+                return Response<MatriculaModel>.Falha("Turma não encontrada");
+
             bool jaMatriculado = _context.Matricula.Any(m => m.AlunoId == matricula.AlunoId && m.TurmaId == matricula.TurmaId);
 
             if (jaMatriculado)
