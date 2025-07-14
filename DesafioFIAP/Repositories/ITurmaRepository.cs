@@ -6,9 +6,9 @@ namespace DesafioFIAP.Repositories
 {
     public interface ITurmaRepository
     {
-        IResponse<TurmaModel> CriarTurma(TurmaModel turma);
-        IResponse<TurmaModel> EditarTurma(TurmaModel turma);
-        IResponse<TurmaModel> ExcluirTurma(TurmaModel turma);
+        Task<IResponse<TurmaModel>> CriarTurma(TurmaModel turma);
+        Task<IResponse<TurmaModel>> EditarTurma(TurmaModel turma);
+        Task<IResponse<TurmaModel>> ExcluirTurma(TurmaModel turma);
         IResponse<List<TurmaQtdAlunosDTO>> ListarTurmas(int numPag, int pagTam);
         IResponse<List<AlunosMatriculadosDTO>> ListarMatriculados(int Id, int numPag, int pagTam);
     }

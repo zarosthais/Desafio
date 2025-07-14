@@ -15,12 +15,12 @@ namespace DesafioFIAP.Repositories
             _context = context;
         }
 
-        public IResponse<MatriculaModel> CriarMatricula(MatriculaModel matricula)
+        public async Task<IResponse<MatriculaModel>> CriarMatricula(MatriculaModel matricula)
         {
             try
             {
                 _context.Matricula.Add(matricula);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return Response<MatriculaModel>.Ok(matricula, "Matrícula efetuada com sucesso.");
             }
             catch (Exception ex)
@@ -30,12 +30,12 @@ namespace DesafioFIAP.Repositories
         }
 
 
-        public IResponse<MatriculaModel> EditarMatricula(MatriculaModel matricula)
+        public async Task<IResponse<MatriculaModel>> EditarMatricula(MatriculaModel matricula)
         {
             try
             {
                 _context.Matricula.Update(matricula);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<MatriculaModel>.Ok(matricula, "Matricula editada com sucesso.");
 
             }
@@ -45,12 +45,12 @@ namespace DesafioFIAP.Repositories
             }
         }
 
-        public IResponse<MatriculaModel> ExcluirMatricula(MatriculaModel matricula)
+        public async Task<IResponse<MatriculaModel>> ExcluirMatricula(MatriculaModel matricula)
         {
             try
             {
                 _context.Matricula.Remove(matricula);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<MatriculaModel>.Ok(matricula, "Matricula excluída com sucesso.");
 
             }

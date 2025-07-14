@@ -14,12 +14,12 @@ namespace DesafioFIAP.Repositories
             _context = context;
         }
 
-        public IResponse<TurmaModel> CriarTurma(TurmaModel turma)
+        public async Task<IResponse<TurmaModel>> CriarTurma(TurmaModel turma)
         {
             try
             {
                 _context.Turma.Add(turma);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<TurmaModel>.Ok(turma, "Turma cadastrada com sucesso.");
             }
             catch (Exception ex)
@@ -28,12 +28,12 @@ namespace DesafioFIAP.Repositories
             }
         }
 
-        public IResponse<TurmaModel> EditarTurma(TurmaModel turma)
+        public async Task<IResponse<TurmaModel>> EditarTurma(TurmaModel turma)
         {
             try
             {
                 _context.Turma.Update(turma);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<TurmaModel>.Ok(turma, "Turma editada com sucesso.");
 
             }
@@ -43,12 +43,12 @@ namespace DesafioFIAP.Repositories
             }
         }
 
-        public IResponse<TurmaModel> ExcluirTurma(TurmaModel turma)
+        public async Task<IResponse<TurmaModel>> ExcluirTurma(TurmaModel turma)
         {
             try
             {
                 _context.Turma.Remove(turma);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<TurmaModel>.Ok(turma, "Turma excluída com sucesso.");
 
             }

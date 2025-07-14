@@ -6,8 +6,8 @@ namespace DesafioFIAP.Repositories
 {
     public interface IMatriculaRepository
     {
-        IResponse<MatriculaModel> CriarMatricula(MatriculaModel turma);
-        IResponse<MatriculaModel> EditarMatricula(MatriculaModel turma);
-        IResponse<MatriculaModel> ExcluirMatricula(MatriculaModel turma); 
+        Task<IResponse<MatriculaModel>> CriarMatricula(MatriculaModel turma);
+        Task<IResponse<MatriculaModel>> EditarMatricula(MatriculaModel turma);
+        Task<IResponse<MatriculaModel>> ExcluirMatricula(MatriculaModel turma);
     }
 }

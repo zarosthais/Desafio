@@ -16,7 +16,7 @@ namespace DesafioFIAP.Services
             _repo = repo;
             _context = context;
         }
-        public IResponse<MatriculaModel> CriarMatricula(CriarMatriculaDTO matricula)
+        public async Task<IResponse<MatriculaModel>> CriarMatricula(CriarMatriculaDTO matricula)
         {
             var aluno = _context.Aluno.FindAsync(matricula.AlunoId);
 
@@ -44,10 +44,10 @@ namespace DesafioFIAP.Services
                 DataInclusao = DateTime.Now,
             };
 
-            return _repo.CriarMatricula(novaMatricula);
+            return await _repo.CriarMatricula(novaMatricula);
         }
 
-        public IResponse<MatriculaModel> EditarMatricula(int Id, EditarMatriculaDTO matriculaEdicao)
+        public async Task<IResponse<MatriculaModel>> EditarMatricula(int Id, EditarMatriculaDTO matriculaEdicao)
         {
             var matricula = _context.Matricula.FindAsync(Id);
 
@@ -59,9 +59,9 @@ namespace DesafioFIAP.Services
             matriculaObtida.TurmaId = matriculaEdicao.TurmaId;
             matriculaObtida.DataEdicao = DateTime.Now;
 
-            return _repo.EditarMatricula(matriculaObtida);
+            return await _repo.EditarMatricula(matriculaObtida);
         }
-        public IResponse<MatriculaModel> ExcluirMatricula(int Id)
+        public async Task<IResponse<MatriculaModel>> ExcluirMatricula(int Id)
         {
             var matricula = _context.Matricula.FindAsync(Id);
 
@@ -70,7 +70,7 @@ namespace DesafioFIAP.Services
             if (matriculaObtida == null)
                 return Response<MatriculaModel>.Falha("Matrícula não encontrada");
 
-            return _repo.ExcluirMatricula(matriculaObtida);
+            return await _repo.ExcluirMatricula(matriculaObtida);
         }
 
     }

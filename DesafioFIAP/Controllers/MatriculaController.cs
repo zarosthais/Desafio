@@ -32,7 +32,7 @@ namespace DesafioFIAP.Controllers
         /// <returns>Matrícula criada</returns>
         [Authorize]
         [HttpPost("Criar")]
-        public IActionResult Criar([FromBody] CriarMatriculaDTO matricula)
+        public async Task<IActionResult> Criar([FromBody] CriarMatriculaDTO matricula)
         {
 
             if (!ModelState.IsValid)
@@ -40,7 +40,7 @@ namespace DesafioFIAP.Controllers
 
             try
             {
-                var result = _matriculaService.CriarMatricula(matricula);
+                var result = await _matriculaService.CriarMatricula(matricula);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);
@@ -63,14 +63,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Matricula editada</returns>
         [Authorize]
         [HttpPut("Editar/{Id}")]
-        public IActionResult Editar(int Id, [FromBody] EditarMatriculaDTO matricula)
+        public async Task<IActionResult> Editar(int Id, [FromBody] EditarMatriculaDTO matricula)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _matriculaService.EditarMatricula(Id, matricula);
+                var result = await _matriculaService.EditarMatricula(Id, matricula);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);
@@ -93,14 +93,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Mensagem de excluído</returns>
         [Authorize]
         [HttpDelete("Excluir/{Id}")]
-        public IActionResult Excluir(int Id)
+        public async Task<IActionResult> Excluir(int Id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _matriculaService.ExcluirMatricula(Id);
+                var result = await _matriculaService.ExcluirMatricula(Id);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);

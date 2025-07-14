@@ -6,8 +6,8 @@ namespace DesafioFIAP.Services
 {
     public interface IMatriculaService
     {
-        IResponse<MatriculaModel> CriarMatricula(CriarMatriculaDTO matricula);
-        IResponse<MatriculaModel> EditarMatricula(int Id, EditarMatriculaDTO matriculaEdicao);
-        IResponse<MatriculaModel> ExcluirMatricula(int Id);
+        Task<IResponse<MatriculaModel>> CriarMatricula(CriarMatriculaDTO matricula);
+        Task<IResponse<MatriculaModel>> EditarMatricula(int Id, EditarMatriculaDTO matriculaEdicao);
+        Task<IResponse<MatriculaModel>> ExcluirMatricula(int Id);
     }
 }

@@ -35,14 +35,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Aluno criado</returns>
         [Authorize]
         [HttpPost("Criar")]
-        public IActionResult Criar([FromBody] CriarAlunoDTO aluno)
+        public async Task<IActionResult> Criar([FromBody] CriarAlunoDTO aluno)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _alunoService.CriarAluno(aluno);
+                var result = await _alunoService.CriarAluno(aluno);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);
@@ -66,14 +66,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Aluno editado</returns>
         [Authorize]
         [HttpPut("Editar/{Id}")]
-        public IActionResult Editar(int Id, [FromBody] EditarAlunoDTO aluno)
+        public async Task<IActionResult> Editar(int Id, [FromBody] EditarAlunoDTO aluno)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _alunoService.EditarAluno(Id, aluno);
+                var result = await _alunoService.EditarAluno(Id, aluno);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);
@@ -96,14 +96,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Mensagem de excluído</returns>
         [Authorize]
         [HttpDelete("Excluir/{Id}")]
-        public IActionResult Excluir(int Id)
+        public async Task<IActionResult> Excluir(int Id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _alunoService.ExcluirAluno(Id);
+                var result = await _alunoService.ExcluirAluno(Id);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);

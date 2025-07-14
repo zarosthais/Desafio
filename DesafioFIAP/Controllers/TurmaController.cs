@@ -32,7 +32,7 @@ namespace DesafioFIAP.Controllers
         /// <returns>Turma criado</returns>
         [Authorize]
         [HttpPost("Criar")]
-        public IActionResult Criar([FromBody] CriarTurmaDTO turma)
+        public async Task<IActionResult> Criar([FromBody] CriarTurmaDTO turma)
         {
 
             if (!ModelState.IsValid)
@@ -40,7 +40,7 @@ namespace DesafioFIAP.Controllers
 
             try
             {
-                _turmaService.CriarTurma(turma);
+                await _turmaService.CriarTurma(turma);
 
                 return Ok(new
                 {
@@ -60,14 +60,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Turma editada</returns>
         [Authorize]
         [HttpPut("Editar/{Id}")]
-        public IActionResult Editar(int Id, [FromBody] EditarTurmaDTO turma)
+        public async Task<IActionResult> Editar(int Id, [FromBody] EditarTurmaDTO turma)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _turmaService.EditarTurma(Id, turma);
+                var result = await _turmaService.EditarTurma(Id, turma);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);
@@ -90,14 +90,14 @@ namespace DesafioFIAP.Controllers
         /// <returns>Mensagem de excluído</returns>
         [Authorize]
         [HttpDelete("Excluir/{Id}")]
-        public IActionResult Excluir(int Id)
+        public async Task<IActionResult> Excluir(int Id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var result = _turmaService.ExcluirTurma(Id);
+                var result = await _turmaService.ExcluirTurma(Id);
 
                 if (!result.Sucesso)
                     return BadRequest(result.Mensagem);

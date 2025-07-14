@@ -14,12 +14,12 @@ namespace DesafioFIAP.Repositories
         {
             _context = context;
         }
-        public IResponse<AlunoModel> CriarAluno(AlunoModel aluno)
+        public async Task<IResponse<AlunoModel>> CriarAluno(AlunoModel aluno)
         {
             try
             {
                 _context.Aluno.Add(aluno);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<AlunoModel>.Ok(aluno, "Aluno cadastrado com sucesso.");
             }
             catch (Exception ex)
@@ -28,12 +28,12 @@ namespace DesafioFIAP.Repositories
             }
         }
 
-        public IResponse<AlunoModel> EditarAluno(AlunoModel aluno)
+        public async Task<IResponse<AlunoModel>> EditarAluno(AlunoModel aluno)
         {
             try
             {
                 _context.Aluno.Update(aluno); 
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<AlunoModel>.Ok(aluno, "Aluno editado com sucesso.");
 
             }
@@ -43,12 +43,12 @@ namespace DesafioFIAP.Repositories
             }
         }
 
-        public IResponse<AlunoModel> ExcluirAluno(AlunoModel aluno)
+        public async Task<IResponse<AlunoModel>> ExcluirAluno(AlunoModel aluno)
         {
             try
             {
                 _context.Aluno.Remove(aluno);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return Response<AlunoModel>.Ok(aluno, "Aluno excluído com sucesso.");
 
             }

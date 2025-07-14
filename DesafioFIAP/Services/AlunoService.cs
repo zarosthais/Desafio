@@ -18,7 +18,7 @@ namespace DesafioFIAP.Services
             _repo = repo;
             _context = context;
         }
-        public IResponse<AlunoModel> CriarAluno(CriarAlunoDTO aluno)
+        public async Task<IResponse<AlunoModel>> CriarAluno(CriarAlunoDTO aluno)
         {
             bool cpfExiste = _context.Aluno.Any(a => a.CPF == aluno.CPF);
             if (cpfExiste)
@@ -44,10 +44,10 @@ namespace DesafioFIAP.Services
                 DataEdicao = null
             };
 
-            return _repo.CriarAluno(novoAluno);
+            return await _repo.CriarAluno(novoAluno);
         }
 
-        public IResponse<AlunoModel> EditarAluno(int Id, EditarAlunoDTO alunoEdicao)
+        public async Task<IResponse<AlunoModel>> EditarAluno(int Id, EditarAlunoDTO alunoEdicao)
         {
             var aluno = _context.Aluno.FindAsync(Id);
 
@@ -60,9 +60,9 @@ namespace DesafioFIAP.Services
             alunoObtido.DataNascimento = alunoEdicao.DataNascimento;
             alunoObtido.DataEdicao = DateTime.Now;
 
-            return _repo.EditarAluno(alunoObtido);
+            return await _repo.EditarAluno(alunoObtido);
         }
-        public IResponse<AlunoModel> ExcluirAluno(int Id)
+        public async Task<IResponse<AlunoModel>> ExcluirAluno(int Id)
         {
             var aluno = _context.Aluno.FindAsync(Id);
 
@@ -71,7 +71,7 @@ namespace DesafioFIAP.Services
             if (alunoObtido == null)
                 return Response<AlunoModel>.Falha("Aluno não encontrado");
 
-            return _repo.ExcluirAluno(alunoObtido);
+            return await _repo.ExcluirAluno(alunoObtido);
         }
         public IResponse<List<AlunoModel>> ListarAlunos(int numPag, int pagTam)
         {

@@ -15,7 +15,7 @@ namespace DesafioFIAP.Services
             _repo = repo;
             _context = context;
         }
-        public IResponse<TurmaModel> CriarTurma(CriarTurmaDTO turma)
+        public async Task<IResponse<TurmaModel>> CriarTurma(CriarTurmaDTO turma)
         {
             var novaTurma = new TurmaModel
             {
@@ -25,9 +25,9 @@ namespace DesafioFIAP.Services
                 DataEdicao = null
             };
 
-            return _repo.CriarTurma(novaTurma);
+            return await _repo.CriarTurma(novaTurma);
         }
-        public IResponse<TurmaModel> EditarTurma(int Id, EditarTurmaDTO turmaEdicao)
+        public async Task<IResponse<TurmaModel>> EditarTurma(int Id, EditarTurmaDTO turmaEdicao)
         {
             var turma = _context.Turma.FindAsync(Id);
 
@@ -40,9 +40,9 @@ namespace DesafioFIAP.Services
             turmaObtida.Descricao = turmaEdicao.Descricao;
             turmaObtida.DataEdicao = DateTime.Now;
 
-            return _repo.EditarTurma(turmaObtida);
+            return await _repo.EditarTurma(turmaObtida);
         }
-        public IResponse<TurmaModel> ExcluirTurma(int Id)
+        public async Task<IResponse<TurmaModel>> ExcluirTurma(int Id)
         {
             var turma = _context.Turma.FindAsync(Id);
 
@@ -51,7 +51,7 @@ namespace DesafioFIAP.Services
             if (turmaObtida == null)
                 return Response<TurmaModel>.Falha("Turma não encontrada");
 
-            return _repo.ExcluirTurma(turmaObtida);
+            return await _repo.ExcluirTurma(turmaObtida);
         }
         public IResponse<List<TurmaQtdAlunosDTO>> ListarTurmas(int numPag, int pagTam)
         {
